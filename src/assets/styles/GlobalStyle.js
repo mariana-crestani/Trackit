@@ -45,6 +45,11 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+p {
+font-family: Lexend Deca;
+font-weight: 400px;
+} 
 `
- 
+
+
 export default GlobalStyle
