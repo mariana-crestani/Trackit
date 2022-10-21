@@ -24,7 +24,6 @@ function NewRegister(e){
         image: form.image,
         password: form.password
     }
-
     
         axios.post(`${URL}/auth/sign-up`, body)
 

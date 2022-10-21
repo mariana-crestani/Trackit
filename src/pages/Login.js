@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { React, useState } from 'react';
+import { React, useState} from 'react';
 import styled from 'styled-components';
 import logo from '../assets/images/Logo.png';
 import { URL } from '../constants/URL.js';
 import axios from 'axios';
 
+
+
 export default function Login() {
 
+   const [info, setInfo] = useState('')
    const [login, setLogin] = useState({email: '',	password: ''})
    const navigate = useNavigate()
 
@@ -24,16 +27,17 @@ function Logar(e){
   }
 
   console.log('body',body)
-       axios.get(`${URL}/auth/login`, body)
-   
+      axios.post(`${URL}/auth/login`, body)
+
        .then((res) => {
-         console.log('resposta Login',res)
-         //precisa ir para nova página aqui!!!!
-         navigate('/cadastro')
+         console.log('resposta Login',res.data)
+         setInfo(res.data)
+         navigate('/habitos')
        })
    
        .catch((err) => {alert(err.response.data)})
    }
+
    /*
     if (movie.lenght === 0) {
        return <div>Carregando...</div>
