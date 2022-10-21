@@ -1,15 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { React, useState} from 'react';
+import { React, useContext, useState} from 'react';
 import styled from 'styled-components';
 import logo from '../assets/images/Logo.png';
 import { URL } from '../constants/URL.js';
 import axios from 'axios';
-
-
+import Context from '../constants/Context.js';
 
 export default function Login() {
 
-   const [info, setInfo] = useState('')
+   const {setUser} = useContext(Context)
    const [login, setLogin] = useState({email: '',	password: ''})
    const navigate = useNavigate()
 
@@ -31,7 +30,7 @@ function Logar(e){
 
        .then((res) => {
          console.log('resposta Login',res.data)
-         setInfo(res.data)
+         setUser(res.data)
          navigate('/habitos')
        })
    
@@ -124,7 +123,7 @@ margin-top: 6px;
 cursor: pointer;
 }
 `
-const LinkCadastro = styled.text`
+const LinkCadastro = styled.div`
 margin-top: 25px;
 font-size: 14px;
 color: #52B6FF;

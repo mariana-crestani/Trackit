@@ -1,8 +1,17 @@
 import Header from '../components/Header.js';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
+import CreateHabit from '../components/CreateHabit.js';
 
 export default function HomeHabit(){
+
+//https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits
+
+/*{
+	name: "Nome do hábito",
+	days: [1, 3, 5] // segunda, quarta e sexta
+} */
+
 
     return(
 <>
@@ -12,6 +21,7 @@ export default function HomeHabit(){
 <h2>Meus hábitos</h2>
 <button>+</button>
 </div>
+<CreateHabit/>
 <h3>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h3>
 </HomeHabitContainer>
 <Footer/>
@@ -64,5 +74,4 @@ font-weight: 400;
 font-size: 18px;
 color: #666666;
 }
-
 `
