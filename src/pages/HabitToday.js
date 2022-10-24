@@ -6,7 +6,7 @@ import { URL } from '../constants/URL.js';
 import ContextLogin from '../constants/ContextLogin.js';
 import { React, useEffect, useState , useContext} from 'react';
 import TodayHabit from '../components/TodayHabit.js';
-import * as dayjs from "dayjs";
+import * as dayjs from 'dayjs';
 
 export default function HabitToday(){
 
@@ -73,9 +73,10 @@ export default function HabitToday(){
         setUser(newUser);
     }
 
-     if (load === false) {
+    if (load === false) {
         return <div>Carregando...</div>
      }
+
 if(habitsToday.length === 0){
     return (
         <>

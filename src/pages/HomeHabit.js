@@ -46,10 +46,10 @@ useEffect(() => {
     })
  }, [user.change])
 
-if (load === false) {
+ if (load === false) {
     return <div>Carregando...</div>
  }
-
+ 
  function createHabit() {
     setCreateHabitClicked(!createHabitClicked)
 }

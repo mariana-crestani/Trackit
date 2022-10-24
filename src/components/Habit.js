@@ -1,10 +1,13 @@
-import { React} from 'react';
+import axios from 'axios';
+import { React, useContext} from 'react';
 import styled from 'styled-components';
 import trash from '../assets/images/trash.svg';
+import ContextLogin from '../constants/ContextLogin.js';
+import { URL } from '../constants/URL.js';
 
 export default function Habit({name, days, id}){
 
-console.log('days', days)
+    const {user, setUser} = useContext(ContextLogin)
 
     const habitDays = [
         { value: 0, day: 'D' },
@@ -17,17 +20,25 @@ console.log('days', days)
     ]
 
 function deletHabit(id){
-  //  confirm('Deseja mesmo deletar este hábito?');
-/*
-        if (!terminadas.includes(index)) {
-            const novoArray = [...terminadas, index]
-            setTerminadas(novoArray)
-            const tarefasQueFaltam = tarefas.length - novoArray.length
-            // alert(`Parabéns! Agora só faltam ${tarefasQueFaltam} tarefas`)
-        }  
-*/
+    if (window.confirm("Você têm certeza que deseja excluir esse hábito?") === true){
+        
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }
 
-}
+        axios.delete(`${URL}/habits/${id}`, config) 
+           
+            .then(res => {
+                setUser({...user,change:!user.change})
+            })
+            .catch(err => {
+                alert(err.response.data.message)
+            })
+    }
+    }
+
 
 function dayIsSelected(value){
 
@@ -41,7 +52,7 @@ return(
 <HabitContainer>
 <Title>
 <h2>{name}</h2>
-<img onclick={() => deletHabit(id)} src={trash} alt='lixeira'/>
+<img onClick={() => deletHabit(id)} src={trash} alt='lixeira'/>
 </Title>
 <WeekButtonContainer>
     {habitDays.map((d) => <button key={d.value} value={d.value} dayIsSelected={dayIsSelected(d.value)}>{d.day}</button>)}
@@ -72,6 +83,7 @@ margin-right: 10px;
 color:#666666;
 width: 13px;
 height: 15px;
+cursor: pointer;
 }
 
 h2{

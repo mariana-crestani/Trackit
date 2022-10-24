@@ -10,8 +10,8 @@ export default function TodayHabit({name, currentSequence, highestSequence, id, 
     const { user, setUser } = useContext(ContextLogin);
 
     function HabitCheck() {
-        if (done) {
 
+        if (done) {
             const config = {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
@@ -41,6 +41,7 @@ export default function TodayHabit({name, currentSequence, highestSequence, id, 
                     const newUser = { ...user }
                     newUser.change = !newUser.change
                     setUser(newUser)
+                    console.log('post no today deu certo', newUser)
                 })
                 .catch(err => {
                     alert(err.response.data.message)

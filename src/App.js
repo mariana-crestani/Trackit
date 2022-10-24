@@ -10,7 +10,7 @@ import { React, useState } from 'react';
 
 export default function App() {
 
-    const [user, setUser] = useState({id: null, name: null, image: null, email: null, password: null, token: null, progress:'100'})
+    const [user, setUser] = useState({id: null, name: null, image: null, email: null, password: null, token: null, progress:null})
 
     return (
         <BrowserRouter>
