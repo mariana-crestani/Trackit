@@ -26,7 +26,6 @@ import { LevelContext } from './LevelContext.js';
  const level = useContext(LevelContext);
 
 
-
 email: "po@tele.com"
 id: 6255
 image: "https://i.pinimg.com/600x315/d0/03/e3/d003e3401897ec3cda8712eddd016f64.jpg"

@@ -1,50 +1,114 @@
+import axios from "axios";
 import styled from "styled-components";
+import ContextLogin from '../constants/ContextLogin.js';
+import { React, useContext, useState, useEffect } from 'react';
+import WeekButton from './WeekButton'
+import { URL } from '../constants/URL.js';
 
-export default function CreateHabit(){
+export default function CreateHabit(setCreateHabitClicked, form, setForm, days, setDays) {
 
-function handleForm(){
+    const { user, setUser } = useContext(ContextLogin)
+    const [disabledButton, setDisabledButton] = useState(false);
+    const [notSwitch, setNotSwitch] = useState(true);
 
+    function handleForm(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
+    function onSubmit(e) {
+        e.preventDefault()
+
+        if (form.days.length === 0) {
+            alert('Selecion ao menos um dia!')
+            setDisabledButton(false)
+            setNotSwitch(true)
+        } else {
+            setDisabledButton(true)
+            setNotSwitch(false)
+        }
+    }
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }
+    
+    axios.post(`${URL}/habits`, form, config)
+    
+        .then(res => {
+            setDisabledButton(false)
+            setCreateHabitClicked(false)
+            setNotSwitch(true)
+            setForm({ name: '', days: [] })
+            setUser({ ...user, change: !user.change })
+            setDays(
+                [
+                    { value: 0, day: 'D', clicked: false },
+                    { value: 1, day: 'S', clicked: false },
+                    { value: 2, day: 'T', clicked: false },
+                    { value: 3, day: 'Q', clicked: false },
+                    { value: 4, day: 'Q', clicked: false },
+                    { value: 5, day: 'S', clicked: false },
+                    { value: 6, day: 'S', clicked: false },
+                ]
+            )
+        })
+    
+        .catch(err => {
+            alert(err.response)
+            setDisabledButton(false)
+            setNotSwitch(true)
+        })
+    })
+
+    return (
+        <CreateHabitContainer>
+            <form onSubmit={onSubmit}>
+
+                <input
+                    required
+                    name='name'
+                    value={form.name}
+                    onChange={handleForm}
+                    type='text'
+                    placeholder='nome do hábito'
+                    disabled={disabledButton}
+                />
+
+                <WeekButtonContainer>
+                    {days.map((d) =>
+                        <WeekButton
+                            key={d.value}
+                            clicked={d.clicked}
+                            value={d.value}
+                            days={days}
+                            setDays={setDays}
+                            setForm={setForm}
+                            form={form}
+                            disabled={disabledButton}
+                        >
+                            {d.day}
+                        </WeekButton>)}
+                </WeekButtonContainer>
+
+                <CancelSaveContainer>
+                    <h3 type="button" onClick={() => setCreateHabitClicked(false)} disabled={disabledButton}>Cancelar</h3>
+                    <button disabled={disabledButton} type="submit" visible={notSwitch}>Salvar</button>
+                </CancelSaveContainer>
+            </form>
+        </CreateHabitContainer>
+    )
 }
 
-return(
-
-<CreateHabitContainer>
-
-<input  
-name='name'
-value={''}
-onChange={handleForm}
-type='text' 
-placeholder='Nome do hábito'
-/>
-
-<WeekButtonContainer>
-<button>D</button>
-<button>S</button>
-<button>T</button>
-<button>Q</button>
-<button>Q</button>
-<button>S</button>
-<button>S</button>
-</WeekButtonContainer>
-
-<CancelSaveContainer>
-<h3>Cancelar</h3>
-<button>Salvar</button>
-</CancelSaveContainer>
-</CreateHabitContainer>
-)
-}
-
-const CreateHabitContainer= styled.div`
+const CreateHabitContainer = styled.div`
 width: 340px;
 height: 180px;
 margin-left: auto;
 margin-right: auto;
-background-color: #FFFFFF;
+background-color: red;//#FFFFFF;
 border-radius: 5px;
-//margin-top: 70px;
-//margin-bottom: 100px;
 display: flex;
 flex-direction: column;
 
@@ -57,22 +121,8 @@ border: 1px solid #D4D4D4;
 border-radius: 5px;
 }
 `
-
 const WeekButtonContainer = styled.div`
-button{
-    margin-right: 4px;
-width: 30px;
-height: 30px;
-border: 1px solid #D4D4D4;
-border-radius: 5px;
-background-color: #FFFFFF;// ou #D4D4D4 
-font-family: 'Lexend Deca';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-color: #D4D4D4;  //ou #FFFFFF
-border-radius: 5px;
-}
+
 `
 
 const CancelSaveContainer = styled.div`

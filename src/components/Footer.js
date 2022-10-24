@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ContextLogin from '../constants/ContextLogin.js';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 
 export default function Footer() {
+
+    const {user} = useContext(ContextLogin)
+    const percentage = user.progress;
 
     return (
         <FooterContainer>
@@ -10,7 +15,20 @@ export default function Footer() {
 
                 <Link to={`/habitos`} style={{ textDecoration: 'none' }}><h2>Hábitos</h2></Link>
 
-                <Link to={`/hoje`} style={{ textDecoration: 'none' }}><button>Hoje</button></Link>
+                <Link to={`/hoje`} style={{ textDecoration: 'none' }}>
+                    <button>
+                <CircularProgressbarWithChildren
+                            value={percentage}
+                            text={'Hoje'}
+                            styles={buildStyles({
+                                backgroundColor: "#52B6FF",
+                                textColor: "#FFFFFF",
+                                pathColor: "#FFFFFF",
+                                trailColor: "transparent"
+                            })}
+                        />
+                </button>
+                </Link>
 
                 <Link to={`/historico`} style={{ textDecoration: 'none' }}><h2>Histórico</h2></Link>
 

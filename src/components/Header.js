@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Context from '../constants/ContextLogin.js';
+import ContextLogin from '../constants/ContextLogin.js';
 import { React, useContext} from 'react';
 
 export default function Header(){
 
-    const {user} = useContext(Context)
+    const {user} = useContext(ContextLogin)
 
 return(
 <HeaderContainer>
@@ -37,6 +37,7 @@ color: #FFFFFF;
 img{
 margin-right: 20px;
 width: 51px;
-border-radius: 100%;
+height: 51px;
+border-radius: 50%;
 }
 `
