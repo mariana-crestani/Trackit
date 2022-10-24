@@ -4,21 +4,20 @@ import Register from './pages/Register';
 import HomeHabit from './pages/HomeHabit'
 import HabitToday from './pages/HabitToday'
 import History from './pages/History';
-import Context from './constants/Context.js';
+import ContextLogin from './constants/ContextLogin.js';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
-
+import { React, useState } from 'react';
 
 export default function App() {
 
     //const [user, setUser] = useState({ id: null, name: null, image: null, email: null, password: null, token: null, progess: null, change:false })
-    const [user, setUser] = useState({id: '', name: '', image: '', email: '', password: '', token: ''})
+    const [user, setUser] = useState({id: null, name: null, image: null, email: null, password: null, token: null})
 
     return (
         <BrowserRouter>
 
             <GlobalStyle />
-            <Context.Provider value={{user, setUser}}>
+            <ContextLogin.Provider value={{user, setUser}}>
             <Routes>
                 <Route path='/' element={<Login/>}  />
                 <Route path='/cadastro' element={<Register/>}/>
@@ -26,7 +25,7 @@ export default function App() {
                 <Route path='/hoje' element={<HabitToday/>}/>
                 <Route path='/historico' element={<History/>}/>
             </Routes>
-            </Context.Provider>
+            </ContextLogin.Provider>
           
         </BrowserRouter>
             )

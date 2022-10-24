@@ -1,17 +1,48 @@
 import Header from '../components/Header.js';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
-import CreateHabit from '../components/CreateHabit.js';
+import axios from 'axios';
+import { URL } from '../constants/URL.js';
+import Context from '../constants/ContextLogin.js';
+import { React, useEffect, useState , useContext} from 'react';
+//import CreateHabit from '../components/CreateHabit.js';
+import Habit from '../components/Habit.js'
 
 export default function HomeHabit(){
 
-//https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits
+    const {user} = useContext(Context)
+    const [habitsList, setHabitsList] = useState([])
 
 /*{
 	name: "Nome do hábito",
 	days: [1, 3, 5] // segunda, quarta e sexta
 } */
 
+useEffect(() => {
+
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${user.token}`
+        }
+    }
+
+    axios.get(`${URL}/habits`, config)
+
+    .then((res) => {
+       console.log('habits', res.data)
+       setHabitsList(res.data)
+    })
+
+    .catch((err) => {
+       console.log(err.response.data)
+       alert(err.response.data)
+    })
+ }, [])
+
+/* if (movies.lenght === 0) {
+    return <div>Carregando...</div>
+ }
+*/
 
     return(
 <>
@@ -21,7 +52,15 @@ export default function HomeHabit(){
 <h2>Meus hábitos</h2>
 <button>+</button>
 </div>
-<CreateHabit/>
+{/*<CreateHabit/>*/}
+
+{habitsList.map((habit) =>
+               <Habit
+                  key={habit.id}
+                  id={habit.id}
+                  name={habit.name}
+                  days={habit.days}
+               />)}
 <h3>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h3>
 </HomeHabitContainer>
 <Footer/>
