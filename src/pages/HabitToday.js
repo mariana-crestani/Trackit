@@ -41,7 +41,7 @@ export default function HabitToday(){
             week = 'Sábado'
             break;
         default:
-            alert('Dia da semana falhou em carregar!')
+            alert('Erro')
             break;
     }
 
@@ -63,7 +63,7 @@ export default function HabitToday(){
         .catch((err) => {
            alert(err.response.data.message)
         })
-     }, [])
+     })
 
 
      function progress(p) {

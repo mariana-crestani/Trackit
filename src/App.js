@@ -11,12 +11,12 @@ import { React, useState } from 'react';
 export default function App() {
 
     const [user, setUser] = useState({id: null, name: null, image: null, email: null, password: null, token: null, progress:null})
+    const [habitList, setHabitList] = useState([])
 
     return (
         <BrowserRouter>
-
             <GlobalStyle />
-            <ContextLogin.Provider value={{user, setUser}}>
+            <ContextLogin.Provider value={{user, setUser, habitList, setHabitList}}>
             <Routes>
                 <Route path='/' element={<Login/>}  />
                 <Route path='/cadastro' element={<Register/>}/>
@@ -24,8 +24,7 @@ export default function App() {
                 <Route path='/hoje' element={<HabitToday/>}/>
                 <Route path='/historico' element={<History/>}/>
             </Routes>
-            </ContextLogin.Provider>
-          
+            </ContextLogin.Provider>         
         </BrowserRouter>
             )
 }

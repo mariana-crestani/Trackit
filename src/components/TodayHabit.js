@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext} from 'react';
 import styled from 'styled-components';
 import Checkbox from '../assets/images/Checkbox.svg';
 import { URL } from '../constants/URL.js';

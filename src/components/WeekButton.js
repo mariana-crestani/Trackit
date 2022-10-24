@@ -7,7 +7,7 @@ export default function WeekButton({ children, clicked, value, days, setDays, se
         const newArr = [...days]
         for (let i = 0; i < newArr.length; i++) {
             if (newArr[i].value === value) {
-                newArr[i].clicked = !newArr[i].clicked;
+                newArr[i].clicked = !newArr[i].clicked
             }
         }
         
@@ -21,12 +21,13 @@ export default function WeekButton({ children, clicked, value, days, setDays, se
             daysNumbers.push(newDays[i].value)
         }
         setForm({ ...form, days: daysNumbers })
-        setDays(newArr);
+        setDays(newArr)
     }
 
-
+return(
 <WeekDay type="button" clicked={clicked} onClick={weekButtonClicked} disabled={disabled}>{children}</WeekDay>
 
+)
 }
 
 const WeekDay = styled.button`

@@ -14,19 +14,8 @@ export default function HomeHabit(){
     const [load, setLoad] = useState(false)
     const [habitsList, setHabitsList] = useState([])
     const [createHabitClicked, setCreateHabitClicked] = useState(false)
-    const [form, setForm] = useState({ name: '', days: [] })
-    const [days, setDays] = useState([
-        { value: 0, day: 'D', clicked: false },
-        { value: 1, day: 'S', clicked: false },
-        { value: 2, day: 'T', clicked: false },
-        { value: 3, day: 'Q', clicked: false },
-        { value: 4, day: 'Q', clicked: false },
-        { value: 5, day: 'S', clicked: false },
-        { value: 6, day: 'S', clicked: false },
-    ]);
 
 useEffect(() => {
-
     const config = {
         headers: {
             'Authorization': `Bearer ${user.token}`
@@ -39,12 +28,13 @@ useEffect(() => {
        setHabitsList(res.data)
        setLoad(true)
        setUser(user)
+       
     })
 
     .catch((err) => {
        alert(err.response.data.message)
     })
- }, [user.change])
+ }, [])
 
  if (load === false) {
     return <div>Carregando...</div>
@@ -63,7 +53,7 @@ if (habitsList.length === 0) {
 <h2 >Meus hábitos</h2>
 <button onClick={createHabit}>+</button>
 </div>
-{createHabitClicked && <CreateHabit setCreateHabitClicked={setCreateHabitClicked} form={form} setForm={setForm} days={days} setDays={setDays}/>}
+{createHabitClicked && <CreateHabit/>}
 <Text>
 <h3>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h3>
 </Text>
@@ -80,7 +70,7 @@ if (habitsList.length === 0) {
 <h2 >Meus hábitos</h2>
 <button onClick={createHabit}>+</button>
 </div>
-{createHabitClicked && <CreateHabit setCreateHabitClicked={setCreateHabitClicked} form={form} setForm={setForm} days={days} setDays={setDays}/>}
+{createHabitClicked && <CreateHabit/>}
 
 {habitsList.map((habit) =>
                <Habit
@@ -89,6 +79,7 @@ if (habitsList.length === 0) {
                   name={habit.name}
                   days={habit.days}
     />)}
+
 </HomeHabitContainer>
 <Footer/>
 </>
