@@ -106,7 +106,7 @@ font-family: 'Lexend Deca';
 font-style: normal;
 font-weight: 400;
 font-size: 23px;
-color: #126BA5;
+color: #586CC0;
 }
 
 button{

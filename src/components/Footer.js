@@ -64,7 +64,7 @@ button{
 margin-bottom: 40px;
 width: 90px;
 height: 90px;
-background-color: #52B6FF;
+background-color: #91A0E2;
 border-radius: 100%;
 color: #FFFFFF;
 font-family: 'Lexend Deca';
@@ -75,6 +75,6 @@ border: 0px;
 }
 
 h2{
-color: #52B6FF;
+color: #586CC0;
 }
 `
